@@ -1,0 +1,3 @@
+[submodule "Electricity_forecast"]
+	path = Electricity_forecast
+	url = https://github.com/amirrezaeian/Individual-household-electric-power-consumption-Data-Set-.git
