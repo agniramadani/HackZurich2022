@@ -3,7 +3,7 @@ import os
 
 
 user = "neo4j"
-password = os.getenv("password")
+password = "TINT9k_f_Ap0jfxqadYHEjo6gHdphZUw4RWxppLuOzk"
 
 class Neo4j:
 

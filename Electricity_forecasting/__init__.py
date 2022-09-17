@@ -1,0 +1,1 @@
+from .forecast_electricity_day import Forecast
