@@ -1,5 +1,5 @@
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv), data manipulation as in SQL
-import matplotlib.pyplot as plt # this is used for the plot the graph
+import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv), data manipulation as in SQL
+import matplotlib.pyplot as plt  # this is used for the plot the graph
 from create_LSTM_model import create_LSTM_model
 from preprocess_features import preprocess_features
 
@@ -27,15 +27,18 @@ def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
         agg.dropna(inplace=True)
     return agg
 
+
 directory = 'Dataset\household_power_consumption.txt'
+n_time_steps = 14
+n_features = 7
 
 df = pd.read_csv(directory, sep=';', parse_dates={'dt': ['Date', 'Time']}, infer_datetime_format=True,
                  low_memory=False, na_values=['nan', '?'], index_col='dt')
 
 # filling nan with mean in any columns
 
-for j in range(0, 7):
-    df.iloc[:, j]= df.iloc[:, j].fillna(df.iloc[:, j].mean())
+for j in range(0, n_features):
+    df.iloc[:, j] = df.iloc[:, j].fillna(df.iloc[:, j].mean())
 
 ## resampling of data over hour
 df_resample = df.resample('D').mean()
@@ -47,10 +50,11 @@ values = df_resample.values
 scaled = preprocess_features(values)
 
 # frame as supervised learning
-reframed = series_to_supervised(scaled, 1, 1)
+reframed = series_to_supervised(scaled, n_time_steps, 1)
 
 # drop columns we don't want to predict
-reframed.drop(reframed.columns[[8, 9, 10, 11, 12, 13]], axis=1, inplace=True)
+reframed.drop(reframed.columns[list(range(len(reframed.keys())-(n_features-1), len(reframed.keys())))], axis=1,
+              inplace=True)
 
 # split into train and test sets
 values = reframed.values
@@ -64,14 +68,14 @@ train_X, train_y = train[:, :-1], train[:, -1]
 test_X, test_y = test[:, :-1], test[:, -1]
 
 # reshape input to be 3D [samples, timesteps, features]
-train_X = train_X.reshape((train_X.shape[0], 1, train_X.shape[1]))
-test_X = test_X.reshape((test_X.shape[0], 1, test_X.shape[1]))
+train_X = train_X.reshape((train_X.shape[0], n_time_steps, n_features))
+test_X = test_X.reshape((test_X.shape[0], n_time_steps, n_features))
 print(train_X.shape, train_y.shape, test_X.shape, test_y.shape)
 
 model = create_LSTM_model((train_X.shape[1], train_X.shape[2]))
 
 # fit network
-history = model.fit(train_X, train_y, epochs=20, batch_size=70, validation_data=(test_X, test_y), verbose=2,
+history = model.fit(train_X, train_y, epochs=100, batch_size=70, validation_data=(test_X, test_y), verbose=2,
                     shuffle=False)
 
 # summarize history for loss
