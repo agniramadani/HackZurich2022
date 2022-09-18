@@ -4,9 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomePage from "./components/HomePage";
-import SocialPage from "./components/SocialPage";
 import TrendsPage from "./components/TrendsPage";
-import SavingsPage from "./components/SavingsPage";
+import AwardsPage from "./components/AwardsPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,17 +29,7 @@ function MyTabs() {
                 }}
             />
             <Tab.Screen
-                name="Social"
-                component={SocialPage}
-                options={{
-                    tabBarLabel: 'Social',
-                    tabBarIcon: ({ color, size }) => (
-                        <MaterialCommunityIcons name="bell" color={color} size={iconSize} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Profile"
+                name="Trends"
                 component={TrendsPage}
                 options={{
                     tabBarLabel: 'Trends',
@@ -50,10 +39,10 @@ function MyTabs() {
                 }}
             />
             <Tab.Screen
-                name="Savings"
-                component={SavingsPage}
+                name="Awards"
+                component={AwardsPage}
                 options={{
-                    tabBarLabel: 'Savings',
+                    tabBarLabel: 'Awards',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="account" color={color} size={iconSize} />
                     ),
