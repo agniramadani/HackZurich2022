@@ -1,6 +1,4 @@
 from flask import jsonify
-import csv
-import json
 import pandas as pd
 
 class Model:

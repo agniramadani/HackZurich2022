@@ -1,5 +1,4 @@
 from neo4j import GraphDatabase
-import os
 
 
 user = "neo4j"

@@ -1,9 +1,8 @@
 from flask import Flask
 from backend.model import Model
 from backend.model import Neo4j
-from Electricity_forecasting import Forecast
+from backend.model import Forecast
 import json
-import random
 
 app = Flask(__name__)
 
@@ -47,5 +46,8 @@ def get_energy_expectations():
     forecast = Forecast()
     prediction = forecast.forecast_electricity_day(features)
     return json.dumps(prediction)
+
+# if __name__ == "__main__":
+#     app.run(host='0.0.0.0', port=5000, debug=True)
 
 

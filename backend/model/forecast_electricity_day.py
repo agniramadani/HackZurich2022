@@ -9,10 +9,10 @@ warnings.filterwarnings("ignore")
 
 
 class Forecast:
-    def forecast_electricity_day(self, features, n_time_step=14, n_features=7, scaler_path="/Users/fatjonlala/Documents/HackZurich2022/newHackZurich/HackZurich2022/Electricity_forecasting/scaler_files/scaler"):
+    def forecast_electricity_day(self, features, n_time_step=14, n_features=7, scaler_path="/Users/fatjonlala/Documents/HackZurich2022/lastHack/HackZurich2022/backend/model/scaler_files/scaler"):
         # Create model and restore weights
         model = create_LSTM_model((n_time_step, n_features))
-        model.load_weights("/Users/fatjonlala/Documents/HackZurich2022/newHackZurich/HackZurich2022/Electricity_forecasting/checkpoints/trained_LSTM_model")
+        model.load_weights("/Users/fatjonlala/Documents/HackZurich2022/lastHack/HackZurich2022/backend/model/checkpoints/trained_LSTM_model")
 
         # Pre-process data
         scaler = joblib.load(scaler_path)
