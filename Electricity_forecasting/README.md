@@ -32,4 +32,5 @@ The following information can be retrieved from the dataset:
 
 9.sub_metering_3: energy sub-metering No. 3 (in watt-hour of active energy). It corresponds to an electric water-heater and an air-conditioner.
 
-For the purpose of testing the usability of this dataset for the HackZurich 2022 challenge
+For the purpose of testing the usability of this dataset for the HackZurich 2022 challenge, 
+data from sources 3-9 will be used.
